@@ -1,44 +1,145 @@
 # 02. Syntax
 
+> **Source Encoding:**  
+> SEN source files **MUST** be encoded in UTF‑8 without BOM.
+
+---
+
 ## 2.1 Lexical Rules
-- File encoding: **UTF-8**
+
 - File extension: `.sen`
-- Tokens separated by one or more whitespace (space/tab)
-- Statements terminated by newline (LF or CRLF)
-- Indentation: ignored (cosmetic only)
-- No commas, no semicolons anywhere
+- The source text is a sequence of Unicode code points
+- Statements are terminated by a newline (`LF` or `CRLF`)
+- Whitespace characters (space or tab) are used to separate tokens
+- Whitespace has no semantic meaning except for newline termination
+- Indentation is ignored (cosmetic only)
+- No commas (`,`) or semicolons (`;`) are used anywhere
+
+---
 
 ## 2.2 Comments
-Single-line only:
+
+Only single-line comments are supported.
+
+Two comment styles are allowed:
+
+```
+# comment
+// comment
+```
+
+Comments may appear anywhere whitespace is allowed.
+
+Examples:
+
 ```
 # full line comment
+
 key: value  # inline comment
+key: value  // inline comment
 ```
 
-No block comments.
+Block comments (`/* ... */`) are not supported.
+
+---
 
 ## 2.3 Keys
-- Pattern: `[a-zA-Z_][a-zA-Z0-9_]*`
-- Case-insensitive (internally normalized to lowercase)
-- Recommendation: always write in lowercase
+
+- Key pattern: `[a-zA-Z_][a-zA-Z0-9_]*`
+- Keys are case-insensitive
+- During parsing, all keys are normalized to lowercase
+- It is recommended to always write keys in lowercase
+
+### 2.3.1 Nested Keys (Dot Notation)
+
+Keys may use dot notation to define nested objects.
+
+Dot notation expansion occurs before duplicate key resolution.
+
+Example:
+
+```
+db.connection.timeout: 5
+```
+
+Is equivalent to:
+
+```
+db: {
+    connection: {
+        timeout: 5
+    }
+}
+```
+
+---
+
+### 2.3.2 Duplicate Keys
+
+If a key appears multiple times within the same object, the last occurrence
+overrides the previous value.
+
+Implementations SHOULD emit a warning when this occurs.
+
+Example:
+
+```
+port: 8080
+port: 9090
+```
+
+Result:
+
+```
+port = 9090
+```
+
+---
 
 ## 2.4 Data Types
 
-| Type     | Syntax                              | Notes |
-|----------|-------------------------------------|-------|
-| String   | `"..."`                             | Must be quoted, JSON escapes supported |
-| Integer  | `42`, `-17`, `0`                    | No leading zeros except for zero |
-| Float    | `3.14`, `-0.01`, `0.5`              | Must start with digit (`.5` forbidden) |
-| Boolean  | `true` / `false`                    | Case-insensitive |
-| Null     | `null`                              | Case-insensitive |
+| Type    | Syntax                     | Notes |
+|-------- |----------------------------|-------|
+| String  | `"..."`                    | Must be quoted, JSON escape sequences supported |
+| Integer | `42`, `-17`, `0`           | No leading zeros except for zero |
+| Float   | `3.14`, `-0.01`, `0.5`     | Must match `[0-9]+ "." [0-9]+` |
+| Boolean | `true`, `false`            | Case-insensitive |
+| Null    | `null`                     | Case-insensitive |
 
-No bare strings allowed (except `true`/`false`/`null`).
+### Notes
 
-SEN is dynamically typed. Implementations **should** emit warnings on type changes for the same key (e.g. number → string).
+- Bare strings are not allowed  
+  (except for the keywords `true`, `false`, and `null`)
+- Floating-point numbers:
+  - `.5` is **invalid**
+  - `5.` is **invalid**
+- Boolean and null values are parsed case-insensitively, but the canonical
+  form is lowercase. Implementations MAY emit warnings for non-canonical forms
+  (e.g. `TRUE`, `False`, `NULL`).
 
-## 2.5 Structures (One-value-per-line only)
+### Type Stability
 
-**Object**
+If a key is overridden, the value type MUST remain the same.
+
+Example (invalid):
+
+```
+port: 8080
+port: "8080"
+```
+
+This MUST produce a parsing error.
+
+---
+
+## 2.5 Structures
+
+SEN supports two composite structures: **objects** and **arrays**.
+
+Only one value or key–value pair is allowed per line.
+
+### Object
+
 ```
 server: {
     host: "localhost"
@@ -47,7 +148,8 @@ server: {
 }
 ```
 
-**Array**
+### Array
+
 ```
 ips: [
     "127.0.0.1"
@@ -56,7 +158,33 @@ ips: [
 ]
 ```
 
-Rules:
-- One value/pair per line
-- Single-line syntax forbidden
-- Nested structures follow same rule
+### Array Type Consistency
+
+All elements of an array MUST have the same type.
+
+For object elements, only the top-level type is enforced; object shape
+consistency is not required at this stage.
+
+Example (valid):
+
+```
+ports: [
+    80
+    443
+]
+```
+
+Example (invalid):
+
+```
+values: [
+    1
+    "two"
+]
+```
+
+### Structure Rules
+
+- Exactly one value or key–value pair per line
+- Single-line object or array syntax is forbidden
+- Nested structures must follow the same rules recursively
