@@ -6,8 +6,6 @@ All operations such as string concatenation, array manipulation, and object merg
 
 SEN intentionally avoids operators and special expression syntax in order to keep the language simple, predictable, and easy to parse.
 
----
-
 ## 3.1 Function Call Syntax
 
 A function call appears as a value assigned to a key.
@@ -53,8 +51,6 @@ path: concat(
 )
 ```
 
----
-
 ## 3.2 Argument Types
 
 Function arguments may be any valid SEN value.
@@ -91,8 +87,6 @@ config: merge(
 )
 ```
 
----
-
 ## 3.3 Key References
 
 A bare identifier used as a value refers to another key.
@@ -112,15 +106,11 @@ In this example, `base` refers to the value of the key named `base`.
 
 The evaluation rules for resolving references are defined in the evaluation model.
 
----
-
 ## 3.4 Built-in Functions (v0.1)
 
 SEN v0.1 defines the following built-in functions.
 
----
-
-### concat
+### 3.4.1 concat
 
 Concatenates multiple string values into a single string.
 
@@ -139,9 +129,7 @@ url: concat(
 )
 ```
 
----
-
-### append
+### 3.4.2 append
 
 Appends elements to an array.
 
@@ -163,9 +151,7 @@ allowed_ips: append(
 )
 ```
 
----
-
-### merge
+### 3.4.3 merge
 
 Performs a deep merge of two objects.
 
@@ -188,8 +174,6 @@ config: merge(
     }
 )
 ```
-
----
 
 ## 3.5 Operators
 
@@ -223,8 +207,6 @@ name: first + last
 name: first . last
 name: "{first} {last}"
 ```
-
----
 
 ## 3.6 Future Functions
 

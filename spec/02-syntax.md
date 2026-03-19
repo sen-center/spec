@@ -119,6 +119,7 @@ port = 9090
 
 ## 2.4 Data Types
 
+### 2.4.1 Primitive Types
 | Type    | Syntax                     | Notes |
 |-------- |----------------------------|-------|
 | String  | `"..."`                    | Must be quoted, JSON escape sequences supported |
@@ -127,7 +128,7 @@ port = 9090
 | Boolean | `true`, `false`            | Case-insensitive |
 | Null    | `null`                     | Case-insensitive |
 
-### Notes
+### 2.4.2 Notes
 
 - Bare strings are not allowed  
   (except for the keywords `true`, `false`, and `null`)
@@ -138,7 +139,7 @@ port = 9090
   form is lowercase. Implementations MAY emit warnings for non-canonical forms
   (e.g. `TRUE`, `False`, `NULL`).
 
-### Type Stability
+### 2.4.3 Type Stability
 
 If a key is overridden, the value type MUST remain the same.
 
@@ -158,7 +159,7 @@ SEN supports two composite structures: **objects** and **arrays**.
 
 Only one value or key–value pair is allowed per line.
 
-### Object
+### 2.5.1 Object
 
 ```
 server: {
@@ -168,7 +169,7 @@ server: {
 }
 ```
 
-### Array
+### 2.5.2 Array
 
 ```
 ips: [
@@ -178,7 +179,7 @@ ips: [
 ]
 ```
 
-### Array Type Consistency
+### 2.5.3 Array Type Consistency
 
 All elements of an array MUST have the same type.
 
@@ -203,7 +204,7 @@ values: [
 ]
 ```
 
-### Structure Rules
+### 2.5.4 Structure Rules
 
 - Exactly one value or key–value pair per line
 - Single-line object or array syntax is forbidden
