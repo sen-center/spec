@@ -1,0 +1,26 @@
+# Application settings
+app: {
+    name: "My Service"
+    version: "1.2.3"
+    debug: false
+}
+
+# Server section
+server: {
+    host: "0.0.0.0"
+    port: 8080
+    retry_attempts: 3
+}
+
+# Database connection
+db: {
+    host: "db.example.local"
+    port: 3306
+    username: "user"
+    password: "pass"
+    ssl: true
+}
+
+# Simple arrays and type mixing example (invalid when enforced)
+valid_ports: [80 443]
+invalid_ports: [80 "443"]  # SHOULD trigger type warning

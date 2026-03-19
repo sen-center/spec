@@ -1,0 +1,26 @@
+# Basic SEN example
+app_name: "MyApp"
+version: "1.0"
+
+# Numeric values
+max_users: 100
+timeout_seconds: 5.5
+
+# Boolean
+debug: true
+
+# Array
+supported_languages: [
+    "en"
+    "fa"
+    "de"
+]
+
+# Object
+database: {
+    host: "localhost"
+    port: 5432
+}
+
+# Null value
+optional_description: null
