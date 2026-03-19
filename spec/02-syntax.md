@@ -3,8 +3,6 @@
 > **Source Encoding:**  
 > SEN source files **MUST** be encoded in UTF‑8 without BOM.
 
----
-
 ## 2.1 Lexical Rules
 
 - File extension: `.sen`
@@ -15,33 +13,60 @@
 - Indentation is ignored (cosmetic only)
 - No commas (`,`) or semicolons (`;`) are used anywhere
 
----
-
 ## 2.2 Comments
 
-Only single-line comments are supported.
+SEN supports both single-line and block comments.
 
-Two comment styles are allowed:
+### 2.2.1 Single-line Comments
+
+Two single-line comment styles are allowed:
 
 ```
 # comment
 // comment
 ```
 
-Comments may appear anywhere whitespace is allowed.
+A single-line comment continues until the end of the current line.
 
 Examples:
 
 ```
 # full line comment
+// full line comment
 
 key: value  # inline comment
 key: value  // inline comment
 ```
 
-Block comments (`/* ... */`) are not supported.
+### 2.2.2 Block Comments
 
----
+Block comments allow commenting multiple lines.
+
+Syntax:
+
+```
+/*
+    comment
+    multiple
+    lines
+*/
+```
+
+Rules:
+
+- Block comments may span multiple lines.
+- Block comments may appear anywhere whitespace is allowed.
+- Block comments do not nest.
+
+Example:
+
+```
+/*
+    Example configuration
+    for development
+*/
+port: 8080
+```
 
 ## 2.3 Keys
 
@@ -72,8 +97,6 @@ db: {
 }
 ```
 
----
-
 ### 2.3.2 Duplicate Keys
 
 If a key appears multiple times within the same object, the last occurrence
@@ -93,8 +116,6 @@ Result:
 ```
 port = 9090
 ```
-
----
 
 ## 2.4 Data Types
 
@@ -130,7 +151,6 @@ port: "8080"
 
 This MUST produce a parsing error.
 
----
 
 ## 2.5 Structures
 
