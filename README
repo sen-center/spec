@@ -31,7 +31,7 @@ Key principles:
   Hierarchical grouping replaces flat namespaces.
 
 - **Type Safety**  
-  Native support for strings, numbers, booleans, arrays, and null.
+  Native support for strings, integers, floats, booleans, arrays, objects, and null.
 
 - **Composability**  
   Configuration can be split across multiple files and merged cleanly.
@@ -81,19 +81,26 @@ Configuration examples of increasing complexity:
 
 ## Specification
 
-The official specification is currently under active development.
+The SEN specification is currently under active development.
+
+The **core syntax has been defined** and is documented in `spec/02-syntax.md`.
+The current specification also defines the core concepts and initial built-in
+function model.
 
 Core documents:
 
-- `spec/00-scope.md`
-- `spec/01-concepts.md`
-- `spec/02-syntax.md`
-- `spec/03-functions.md`
+- `spec/00-scope.md` — Scope and goals
+- `spec/01-concepts.md` — Core concepts and mental model
+- `spec/02-syntax.md` — Core syntax and data types
+- `spec/03-functions.md` — Function calls and built-in functions
 
 Current status:
 
 - **Stage:** Draft / Request for Comments (RFC)
+- **Core syntax:** Defined
 - **Target version:** v0.1.0
+
+The evaluation and resolution model is still under development.
 
 ## Vision
 
