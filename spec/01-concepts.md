@@ -67,12 +67,12 @@ Every configuration value in SEN has an **explicit type**.
 Conceptual value types include:
 
 - String
-- Number (integer and floating-point)
+- Integer
+- Float
 - Boolean
+- Null
 - Array
-
-Additional composite types (such as Object / Map) may be introduced in future
-versions without violating core principles.
+- Object
 
 Explicit typing enables:
 

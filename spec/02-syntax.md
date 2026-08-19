@@ -9,7 +9,8 @@
 - The source text is a sequence of Unicode code points
 - Statements are terminated by a newline (`LF` or `CRLF`)
 - Whitespace characters (space or tab) are used to separate tokens
-- Whitespace has no semantic meaning except for newline termination
+- Whitespace has no semantic meaning
+- Newlines are significant and terminate statements
 - Indentation is ignored (cosmetic only)
 - No commas (`,`) or semicolons (`;`) are used anywhere
 
@@ -127,11 +128,10 @@ port = 9090
 | Float   | `3.14`, `-0.01`, `0.5`     | Must match `[0-9]+ "." [0-9]+` |
 | Boolean | `true`, `false`            | Case-insensitive |
 | Null    | `null`                     | Case-insensitive |
-
 ### 2.4.2 Notes
 
-- Bare strings are not allowed  
-  (except for the keywords `true`, `false`, and `null`)
+- Bare strings are not allowed as string values.
+- Bare identifiers may be used as key references; see Section 3.3.
 - Floating-point numbers:
   - `.5` is **invalid**
   - `5.` is **invalid**

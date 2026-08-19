@@ -36,7 +36,9 @@ The design of SEN is guided by the following core principles:
   The syntax must be easy to read, write, review, and maintain by humans.
 
 - **Type Safety**  
-  Configuration values must have explicit and well-defined types (e.g., String, Number, Boolean, Array) to reduce ambiguity and runtime errors.
+  Configuration values must have explicit and well-defined types
+  (e.g., String, Integer, Float, Boolean, Null, Array, Object)
+  to reduce ambiguity and runtime errors.
 
 - **Structure**  
   Configuration must support hierarchical grouping and namespacing rather than flat key-value mappings.
