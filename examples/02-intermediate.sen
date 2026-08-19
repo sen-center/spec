@@ -21,6 +21,18 @@ db: {
     ssl: true
 }
 
-# Simple arrays and type mixing example (invalid when enforced)
-valid_ports: [80 443]
-invalid_ports: [80 "443"]  # SHOULD trigger type warning
+# Simple arrays
+valid_ports: [
+    80
+    443
+]
+
+# Invalid examples:
+# - Single-line arrays are forbidden
+invalid_single_line: [80 443]
+
+# - Array elements MUST have the same type
+invalid_mixed_types: [
+    80
+    "443"
+]
